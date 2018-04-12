@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+
+	<constant name="struts.devMode" value="true" />
+
+	<package name="default" namespace="/" extends="struts-default">
+	
+	
+	<!--拦截器配置  -->
+	        <interceptors>
+           <interceptor name="loginCheck" class="com.keti.Interceptor.UserCheckInterceptor"></interceptor>
+             <interceptor-stack name="myStack">
+                 <!-- 默认的defaultStack -->
+                 <interceptor-ref name="defaultStack"></interceptor-ref>
+                 <interceptor-ref name="loginCheck"></interceptor-ref>
+             </interceptor-stack>
+        </interceptors>
+       
+        
+		<action name="user_*" class="userAction" method="{1}">
+            <interceptor-ref name="loginCheck"></interceptor-ref>   
+			<result name="success">/home.jsp</result>
+			<result name="login">/login.jsp</result>
+			<result name="logout">/index.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+
+		<action name="goods_*" class="goodsAction" method="{1}">
+			<result name="upload">/goods_upload_success.jsp</result>
+			<result name="mygoods">/mygoods.jsp</result>
+			<result name="mygoods1">/BidRecord.jsp</result>
+			<result name="doBid">/goods_bid.jsp</result>
+			<result name="onSaleGoodsList">/onSaleGoodsList.jsp</result>
+			<result name="blurry">/blurry.jsp</result>
+			<result name="shopcar">/shopcar.jsp</result>
+			<result name="zbyq">/zbyq.jsp</result>
+			<result name="wwsc">/wwsc.jsp</result>
+			<result name="zstc">/zstc.jsp</result>
+			<result name="ysp">/ysp.jsp</result>
+			<result name="gyp">/gyp.jsp</result>
+		</action>
+
+
+		<action name="bid_*" class="bidAction" method="{1}">
+			<result name="success">/home.jsp</result>
+		</action>
+	</package>
+
+</struts>
